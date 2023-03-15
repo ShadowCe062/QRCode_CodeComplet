@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <title>Générateur de QR Code</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="./css/style.css">
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript" src="qrcode.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+  <script type="text/javascript" src="jszip.js"></script>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+  <style>
+  .show {
+    display: block !important;
+  }
+  </style>
+</head>
+
+<body >
+  <div>
+  <input type="checkbox"class="checkbox" id="checkbox" />
+  <label for="checkbox" class="label">
+    <i class="fas fa-moon"></i>
+    <i class="fas fa-sun"></i>
+    <div class="ball"></div>
+  </label>
+</div>
+    </label>
+    <script type="text/javascript">
+    const checkbox = document.getElementById('checkbox');
+
+    checkbox.addEventListener('change', () => {
+      // change theme of website
+      document.body.classList.toggle('dark');
+    })
+    </script>
+  <div class="row0">
+    <div class="col-sm-4">
+      <button class="info" id="myButton">Pour plus d'explication
+        <img src="./images/Calque.png" alt="Plus d'infos">
+      </button>
+
+      <br>
+      <div id="myPopup" style="display: none;">
+        <h5><strong>Une fois tous les champs renseigner, il vous faudra simplement cliquer sur le bouton "Générer le QR Code"</strong></h5>
+        <br>
+        <h5>"Exemple : </h5>
+        <h5>0060840F Frédéric Mistral Apple iPad 8th DMQFG1EZQ1GC 161612 iPad 03 CL 1</h5>
+        <h5>0060840F Frédéric Mistral Apple iPad 8th DMPF894CQ1GC 161540 iPad 04 CL 1</h5>
+        <br>
+        <br>
+        <h5><strong>⚠️ ATTENTION ! La seule consigne à respecter est de mettre sur une seule ligne les données qui seront générer dans le QR Code ⚠️</strong></h5>
+        <h5>- Ligne 1 : Toutes les données du Champs 1</h5>
+        <h5>- Ligne 2 : Toutes les données du Champs 2</h5>
+        <h5>- etc...</h5>
+        <br>
+      </div>
+
+      <script>
+      const button = document.getElementById("myButton");
+      const popup = document.getElementById("myPopup");
+      const img = button.querySelector("img");
+
+      button.addEventListener("click", function() {
+        popup.classList.toggle("show");
+        if (popup.classList.contains("show")) {
+          button.innerHTML = "Fermer la bulle";
+          img.style.display = "none"; // Masquer l'image lorsque le popup est ouvert
+        } else {
+          button.innerHTML = "Ouvrir pour plus d'info";
+          img.style.display = "inline-block"; // Réafficher l'image lorsque le popup est fermé
+        }
+      });
+      </script>
+    </div>
+    <div class="col-sm-4 ">
+      <p>POWERED BY <img class="foot" src="./images/CC Web x400.png " alt=" "></p>
+
+    </div>
+  </div>
+  <br>
+  <div>
+    <br>
+    <br>
+    <h1>Ceci est un Générateur de QR Code : Simple et Efficace !</h1>
+    <br>
+    <h3>Cet outil permet de générer des QR codes à partir d'une liste d'éléments que l'on peut copier-coller de n'importe quelle source.</h3>
+
+    <h3>Le Générateur va créer un QR code par ligne renseignée, facilitant ainsi la génération de multiples codes rapidement.</h3>
+    <br>
+    <h4>⚠️ ATTENTION ! Il est recommandé de rafraîchir la page si vous devez utiliser l'outil plusieurs fois afin d'éviter tout dysfonctionnement.</h4>
+
+    <br>
+    <h4>1. Coller les champs que vous voulez générer en QR Code :</h4>
+    <br>
+    <textarea id="values" style="width:100%;height:30%" placeholder="Coller ici les champs pour le Générateur..."></textarea>
+    <br>
+    <h4>2. Cliquer sur le Bouton pour commencer la génération du ou des QR Code :</h4>
+    <br>
+
+    <button class="gen" id="generate-qr-codes">Générer le(s) QR Code(s)</button>
+    <button id="download-all-qr-codes">Télécharger tous les QR Codes en ZIP</button>
+
+    <div id="qrcodes"></div>
+
+    <script type="text/javascript">
+    $("#generate-qr-codes").on("click", function() {
+      var values = $("#values").val().split("\n");
+      var qrcodes = document.getElementById("qrcodes");
+      qrcodes.innerHTML = "<br><h4>3. Voici les QR Code(s) générés !</h4>";
+      var index = 01;
+      for (let i = 0; i < values.length; i++) {
+        if (values[i]) {
+          var qrcodeContainer = document.createElement("div");
+          qrcodeContainer.style.display = "flex";
+          qrcodeContainer.style.flexDirection = "row";
+          qrcodeContainer.style.alignItems = "center";
+          var qrcodeIndex = document.createElement("div");
+          qrcodeIndex.style.marginRight = "10px";
+          qrcodeIndex.textContent = "QR Code " + index + " :";
+          qrcodeContainer.appendChild(qrcodeIndex);
+          var qrcode = document.createElement("div");
+          qrcode.style.width = "150px";
+          qrcode.style.height = "150px";
+          qrcode.style.marginTop = "15px";
+          qrcodeContainer.appendChild(qrcode);
+          qrcodes.appendChild(qrcodeContainer);
+          new QRCode(qrcode, {
+            width: 100,
+            height: 100,
+            correctLevel: QRCode.CorrectLevel.H,
+            fill: "transparent",
+          }).makeCode(values[i]);
+          index++;
+        }
+      }
+    });
+
+    $("#download-all-qr-codes").on("click", function() {
+      var zip = new JSZip();
+      var values = $("#values").val().split("\n");
+      var qrCodes = document.querySelectorAll("#qrcodes div:nth-child(n+2) div:nth-child(2)");
+      for (var i = 0; i < qrCodes.length; i++) {
+        zip.file("QR Code_" + (i+001) + ".png" , qrCodes[i].querySelector("img").src.split("base64,")[1], {base64: true});
+      }
+      zip.generateAsync({type:"blob"}).then(function(content) {
+        saveAs(content, "QR_Codes.zip");
+      });
+    });
+    </script>
+
+
+
+  </body>

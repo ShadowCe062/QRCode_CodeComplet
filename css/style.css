@@ -1,0 +1,153 @@
+html,body{
+  padding: 40px;
+
+}
+
+body.dark {
+  background-color: #292c35;
+  color: white;
+}
+.label
+{
+    background-color: #292c35;
+    height: 50px;
+    width: 100px;
+    justify-content:space-between;
+    display: flex;
+    border-radius: 50px;
+    padding: 5px;
+    position:relative;
+  transform:scale(3);
+  font-size: 150% !important
+}
+
+.ball{
+  background-color:#fff;
+  width:30px;
+  height:30px;
+  top: 0px;
+  left: 10px;
+  border-radius:50%;
+  position:absolute;
+  transition: transform 0.2s linear;
+  font-size: 100% !important
+}
+.checkbox{
+  position:absolute;
+  opacity:0;
+}
+
+.fa-moon{
+  color:#f1c40f;
+}
+.fa-sun{
+  color:#f39c12;
+}
+
+.checkbox:checked + .label .ball{
+transform: translateX(24px);
+}
+
+textarea{
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 20px;
+  color: black !important;
+}
+h1{
+  text-align: center;
+  text-decoration: underline;
+}
+,h2,h3{
+  text-align: center;
+}
+.foot {
+  width: 60px;
+  height: 35px;
+  overflow: hidden;
+}
+
+.row0 {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: center;
+
+}
+h4{
+  font-style : italic;
+  text-decoration: underline;
+}
+#myPopup {
+  display: none;
+}
+
+#myPopup.show {
+  display: block;
+  position: absolute;
+  width: 50%;
+  background-color: #d9e1e8;
+  border: 1px solid darkred;
+  border-radius: 5%;
+  box-shadow: 15px 15px 15px 0 rgba(0,0,0,0.2);
+  padding: 20px;
+  left: 30%;
+  top: 20%;
+  z-index: 1;
+  color: black !important
+}
+
+button {
+  background-color: orange;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px #000000;
+
+}
+
+button:active {
+  transform: translateY(4px);
+}
+.gen{
+  background-color: green;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px #000000;
+}
+.info{
+  background-color: orange;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px #000000;
+}
+img{
+  position: absolute;
+}
+.infoPNJ{
+  margin-top: 30px;
+}
